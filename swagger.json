@@ -388,6 +388,10 @@
             "items" : {
               "$ref" : "#/components/schemas/ServerReadDto"
             }
+          },
+          "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -415,6 +419,10 @@
           "name" : {
             "type" : "string",
             "example" : "my-server"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -446,6 +454,10 @@
           "name" : {
             "type" : "string",
             "example" : "my-channel"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
