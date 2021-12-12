@@ -1,0 +1,527 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Simple Inventory API",
+    "description" : "This is a simple API",
+    "contact" : {
+      "email" : "rael.calitro@ynov.com"
+    },
+    "license" : {
+      "name" : "MIT"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/rael06/restfull-api/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "users",
+    "description" : "Operations available to regular users"
+  }, {
+    "name" : "servers",
+    "description" : "Operations available to servers"
+  }, {
+    "name" : "channels",
+    "description" : "Operations available to channels"
+  }, {
+    "name" : "messages",
+    "description" : "Operations available to messages"
+  }, {
+    "name" : "admins",
+    "description" : "Operations available to admin users"
+  } ],
+  "paths" : {
+    "/users" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "searches inventory",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId" : "searchInventory",
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 50,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/UserCreateDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "adds a user",
+        "description" : "Adds a user to the system",
+        "operationId" : "addUser",
+        "requestBody" : {
+          "description" : "user to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserCreateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "user created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/servers" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "adds a server to user",
+        "description" : "Adds a server to a user",
+        "operationId" : "addServer",
+        "requestBody" : {
+          "description" : "server to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ServerCreateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "server created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          }
+        }
+      }
+    },
+    "/servers/{serverId}/users" : {
+      "post" : {
+        "tags" : [ "servers" ],
+        "summary" : "adds a user to the server",
+        "description" : "Adds a user to the server",
+        "operationId" : "addUserToServer",
+        "parameters" : [ {
+          "name" : "serverId",
+          "in" : "path",
+          "description" : "pass the serverId you want to add a user",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "user added to the server"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "404" : {
+            "description" : "server not found"
+          }
+        }
+      }
+    },
+    "/servers/{serverId}/channels" : {
+      "post" : {
+        "tags" : [ "servers" ],
+        "summary" : "adds a channel to the server",
+        "description" : "Adds a channel to the server",
+        "operationId" : "addChannelToServer",
+        "parameters" : [ {
+          "name" : "serverId",
+          "in" : "path",
+          "description" : "pass the serverId you want to add a channel",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "channel to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChannelCreateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "channel added to the server",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChannelReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only create channels on his servers"
+          },
+          "404" : {
+            "description" : "server not found"
+          }
+        }
+      }
+    },
+    "/channels/{channelId}/messages" : {
+      "post" : {
+        "tags" : [ "channels" ],
+        "summary" : "adds a message to the channel",
+        "description" : "Adds a message to the channel",
+        "operationId" : "addMessageToChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "pass the channelId you want to add the message",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "message to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MessageCreateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "message added to the channel",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MessageReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only create messages on a subscribed server"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        }
+      }
+    },
+    "/messages/{messageId}" : {
+      "delete" : {
+        "tags" : [ "messages" ],
+        "summary" : "deletes a message",
+        "description" : "deletes a message",
+        "operationId" : "deleteMessage",
+        "parameters" : [ {
+          "name" : "messageId",
+          "in" : "path",
+          "description" : "pass the id of the message you want to update",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "message deleted"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only delete his messages"
+          },
+          "404" : {
+            "description" : "message not found"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "messages" ],
+        "summary" : "updates a message",
+        "description" : "updates a message",
+        "operationId" : "upadateMessage",
+        "parameters" : [ {
+          "name" : "messageId",
+          "in" : "path",
+          "description" : "pass the id of the message you want to update",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "new content of the message",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MessageUpdateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "message updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MessageReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only update his messages"
+          },
+          "404" : {
+            "description" : "message not found"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UserReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "username" : {
+            "type" : "string",
+            "example" : "my-pseudo"
+          },
+          "servers" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ServerReadDto"
+            }
+          }
+        }
+      },
+      "UserCreateDto" : {
+        "required" : [ "username" ],
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "example" : "my-pseudo"
+          }
+        }
+      },
+      "ServerReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "ownerId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "my-server"
+          }
+        }
+      },
+      "ServerCreateDto" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "my-server"
+          }
+        }
+      },
+      "ChannelReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "serverId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "my-channel"
+          }
+        }
+      },
+      "ChannelCreateDto" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "my-channel"
+          }
+        }
+      },
+      "MessageReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "userId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "channelId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "content" : {
+            "type" : "string",
+            "example" : "my-content"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
+          }
+        }
+      },
+      "MessageCreateDto" : {
+        "required" : [ "content" ],
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "string",
+            "example" : "my-content"
+          }
+        }
+      },
+      "MessageUpdateDto" : {
+        "required" : [ "content" ],
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "string",
+            "example" : "my-new-content"
+          }
+        }
+      }
+    }
+  }
+}
