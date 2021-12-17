@@ -95,9 +95,9 @@
       },
       "post" : {
         "tags" : [ "users" ],
-        "summary" : "adds a user",
-        "description" : "Adds a user to the system",
-        "operationId" : "addUser",
+        "summary" : "creates a user",
+        "description" : "Creates a user in the system",
+        "operationId" : "createUser",
         "requestBody" : {
           "description" : "user to add",
           "content" : {
@@ -127,10 +127,10 @@
     },
     "/servers" : {
       "post" : {
-        "tags" : [ "users" ],
-        "summary" : "adds a server to user",
-        "description" : "Adds a server to a user",
-        "operationId" : "addServer",
+        "tags" : [ "servers" ],
+        "summary" : "creates a server",
+        "description" : "Creates a server",
+        "operationId" : "createServer",
         "requestBody" : {
           "description" : "server to add",
           "content" : {
@@ -170,7 +170,7 @@
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "pass the serverId you want to add a user",
+          "description" : "The id of the server you want to add a user",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -188,8 +188,8 @@
           }
         },
         "responses" : {
-          "201" : {
-            "description" : "server created",
+          "200" : {
+            "description" : "server updated",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -205,7 +205,7 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user not owner of the server"
+            "description" : "user can only update his servers"
           },
           "404" : {
             "description" : "server not found"
@@ -222,7 +222,7 @@
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "pass the serverId you want to add a user",
+          "description" : "The id of the server you want to add a user",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -230,6 +230,16 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "description" : "user to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ServerUserCreateDto"
+              }
+            }
+          }
+        },
         "responses" : {
           "201" : {
             "description" : "user added to the server"
@@ -246,6 +256,96 @@
         }
       }
     },
+    "/servers/{serverId}/users/{userId}" : {
+      "delete" : {
+        "tags" : [ "servers" ],
+        "summary" : "deletes a user of the server",
+        "description" : "Deletes a user of the server",
+        "operationId" : "deleteServerUser",
+        "parameters" : [ {
+          "name" : "serverId",
+          "in" : "path",
+          "description" : "The id of the server you want to delete a user from",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "The id of the user you want to delete",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "user deleted of the server"
+          },
+          "400" : {
+            "description" : "Something went wrong, try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only delete users from his servers"
+          },
+          "404" : {
+            "description" : "server or user not found"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "servers" ],
+        "summary" : "update user role in the server",
+        "description" : "Updates user role in the server",
+        "operationId" : "updateServerUserRole",
+        "parameters" : [ {
+          "name" : "serverId",
+          "in" : "path",
+          "description" : "The id of the server you want to update a user role from",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "The id of the user you want to update the role",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user role in the server updated"
+          },
+          "400" : {
+            "description" : "Something went wrong, try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only update role of users from his servers"
+          },
+          "404" : {
+            "description" : "server or user not found"
+          }
+        }
+      }
+    },
     "/servers/{serverId}/channels" : {
       "post" : {
         "tags" : [ "servers" ],
@@ -255,7 +355,7 @@
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "pass the serverId you want to add a channel",
+          "description" : "The id of the server you want to add a channel",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -308,7 +408,7 @@
         "parameters" : [ {
           "name" : "channelId",
           "in" : "path",
-          "description" : "pass the channelId you want to add the message",
+          "description" : "The id of the channel you want to add the message",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -337,7 +437,7 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user can only get messages of a channel on the subscribed server"
+            "description" : "user can only get messages of channels on subscribed servers"
           },
           "404" : {
             "description" : "channel not found"
@@ -346,13 +446,13 @@
       },
       "post" : {
         "tags" : [ "channels" ],
-        "summary" : "adds a message to the channel",
-        "description" : "Adds a message to the channel",
-        "operationId" : "addMessageToChannel",
+        "summary" : "creates a message in the channel",
+        "description" : "Creates a message to the channel",
+        "operationId" : "createMessageToChannel",
         "parameters" : [ {
           "name" : "channelId",
           "in" : "path",
-          "description" : "pass the channelId you want to add the message",
+          "description" : "The id of the channel you want to add the message",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -372,7 +472,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "message added to the channel",
+            "description" : "message created in the channel",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -396,6 +496,93 @@
         }
       }
     },
+    "/channels/{channelId}" : {
+      "delete" : {
+        "tags" : [ "channels" ],
+        "summary" : "deletes a channel",
+        "description" : "deletes a channel",
+        "operationId" : "deleteChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "The id of the channel you want to delete",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "channel deleted"
+          },
+          "400" : {
+            "description" : "Something went wrong, please try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only delete his channels"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "channels" ],
+        "summary" : "patches a channel",
+        "description" : "Patches a channel",
+        "operationId" : "patchChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "The id of the channel you want to update",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "channel to update",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChannelUpdateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "channel updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChannelReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only edit his channels"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        }
+      }
+    },
     "/messages/{messageId}" : {
       "delete" : {
         "tags" : [ "messages" ],
@@ -405,7 +592,7 @@
         "parameters" : [ {
           "name" : "messageId",
           "in" : "path",
-          "description" : "pass the id of the message you want to update",
+          "description" : "The id of the message you want to delete",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -418,7 +605,7 @@
             "description" : "message deleted"
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Something went wrong, please try again later"
           },
           "401" : {
             "description" : "user not authenticated"
@@ -439,7 +626,7 @@
         "parameters" : [ {
           "name" : "messageId",
           "in" : "path",
-          "description" : "pass the id of the message you want to update",
+          "description" : "The id of the message you want to update",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -526,13 +713,15 @@
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
           },
-          "ownerId" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
           "name" : {
             "type" : "string",
             "example" : "my-server"
+          },
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ServerUserReadDto"
+            }
           },
           "creationDate" : {
             "type" : "string",
@@ -548,10 +737,6 @@
         "required" : [ "name" ],
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
           "name" : {
             "type" : "string",
             "example" : "my-server"
@@ -565,6 +750,33 @@
           "name" : {
             "type" : "string",
             "example" : "my-updated-channel-name"
+          }
+        }
+      },
+      "ServerUserReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "userId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      },
+      "ServerUserCreateDto" : {
+        "required" : [ "isAdmin", "userId" ],
+        "type" : "object",
+        "properties" : {
+          "userId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : false
           }
         }
       },
@@ -595,6 +807,15 @@
       },
       "ChannelCreateDto" : {
         "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "my-channel"
+          }
+        }
+      },
+      "ChannelUpdateDto" : {
         "type" : "object",
         "properties" : {
           "name" : {
