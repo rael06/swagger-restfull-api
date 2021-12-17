@@ -17,7 +17,7 @@
   },
   "tags" : [ {
     "name" : "users",
-    "description" : "Operations available to regular users"
+    "description" : "Operations available to users"
   }, {
     "name" : "servers",
     "description" : "Operations available to servers"
@@ -153,6 +153,56 @@
         }
       }
     },
+    "/servers/{serverId}" : {
+      "patch" : {
+        "tags" : [ "servers" ],
+        "summary" : "patches a server",
+        "operationId" : "patchServer",
+        "description" : "Patches a server",
+        "responses" : {
+          "201" : {
+            "description" : "server created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user not owner of the server"
+          },
+          "404" : {
+            "description" : "server not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "description" : "pass the serverId you want to add a user",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ServerUpdateDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "/servers/{serverId}/users" : {
       "post" : {
         "tags" : [ "servers" ],
@@ -284,6 +334,48 @@
           },
           "description" : "message to add"
         }
+      },
+      "get" : {
+        "tags" : [ "channels" ],
+        "summary" : "get messages of the channel",
+        "operationId" : "getMessagesOfChannel",
+        "description" : "Gets all messages of the channel",
+        "responses" : {
+          "200" : {
+            "description" : "messages of the channel",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MessageReadDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong, please retry later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only get messages of a channel on the subscribed server"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "channelId",
+          "description" : "pass the channelId you want to add the message",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
       }
     },
     "/messages/{messageId}" : {
@@ -423,6 +515,10 @@
           "creationDate" : {
             "type" : "string",
             "example" : "2021-12-12T17:47:00+0200"
+          },
+          "updateDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -437,6 +533,16 @@
           "name" : {
             "type" : "string",
             "example" : "my-server"
+          }
+        }
+      },
+      "ServerUpdateDto" : {
+        "type" : "object",
+        "required" : [ "name" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "my-updated-channel-name"
           }
         }
       },
@@ -456,6 +562,10 @@
             "example" : "my-channel"
           },
           "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
+          },
+          "updateDate" : {
             "type" : "string",
             "example" : "2021-12-12T17:47:00+0200"
           }
@@ -491,6 +601,10 @@
             "example" : "my-content"
           },
           "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
+          },
+          "updateDate" : {
             "type" : "string",
             "example" : "2021-12-12T17:47:00+0200"
           }
