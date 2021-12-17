@@ -160,8 +160,8 @@
         "operationId" : "patchServer",
         "description" : "Patches a server",
         "responses" : {
-          "201" : {
-            "description" : "server created",
+          "200" : {
+            "description" : "server updated",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -378,6 +378,57 @@
         } ]
       }
     },
+    "/channels/{channelId}" : {
+      "patch" : {
+        "tags" : [ "channels" ],
+        "summary" : "patches a channel",
+        "operationId" : "patchChannel",
+        "description" : "Patches a channel",
+        "responses" : {
+          "200" : {
+            "description" : "channel updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChannelReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only edit his channels"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "channelId",
+          "description" : "pass the channelId you want to update",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChannelUpdateDto"
+              }
+            }
+          },
+          "description" : "channel to update"
+        }
+      }
+    },
     "/messages/{messageId}" : {
       "patch" : {
         "tags" : [ "messages" ],
@@ -574,6 +625,15 @@
       "ChannelCreateDto" : {
         "type" : "object",
         "required" : [ "name" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "my-channel"
+          }
+        }
+      },
+      "ChannelUpdateDto" : {
+        "type" : "object",
         "properties" : {
           "name" : {
             "type" : "string",
