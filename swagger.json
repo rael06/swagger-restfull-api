@@ -236,7 +236,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CreateSubscriberDto"
+                "$ref" : "#/components/schemas/ServerUserCreateDto"
               }
             }
           },
@@ -245,10 +245,50 @@
       }
     },
     "/servers/{serverId}/users/{userId}" : {
+      "patch" : {
+        "tags" : [ "servers" ],
+        "summary" : "update user role in the server",
+        "operationId" : "updateServerUserRole",
+        "description" : "Updates user role in the server",
+        "responses" : {
+          "200" : {
+            "description" : "user role in the server updated"
+          },
+          "400" : {
+            "description" : "Something went wrong, try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only update role of users from his servers"
+          },
+          "404" : {
+            "description" : "server or user not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "description" : "The id of the server you want to update a user role from",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "userId",
+          "description" : "The id of the user you want to update the role",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
       "delete" : {
         "tags" : [ "servers" ],
         "summary" : "deletes a user of the server",
-        "operationId" : "deleteUserOfServer",
+        "operationId" : "deleteServerUser",
         "description" : "Deletes a user of the server",
         "responses" : {
           "204" : {
@@ -632,23 +672,6 @@
           }
         }
       },
-      "SubscriberReadDto" : {
-        "type" : "object",
-        "properties" : {
-          "userId" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
-          "serverId" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
-          "isAdmin" : {
-            "type" : "boolean",
-            "example" : true
-          }
-        }
-      },
       "ServerReadDto" : {
         "type" : "object",
         "properties" : {
@@ -663,7 +686,7 @@
           "users" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/SubscriberReadDto"
+              "$ref" : "#/components/schemas/ServerUserReadDto"
             }
           },
           "creationDate" : {
@@ -696,15 +719,24 @@
           }
         }
       },
-      "CreateSubscriberDto" : {
+      "ServerUserReadDto" : {
         "type" : "object",
-        "required" : [ "userId", "serverId", "isAdmin" ],
         "properties" : {
           "userId" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
           },
-          "serverId" : {
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      },
+      "ServerUserCreateDto" : {
+        "type" : "object",
+        "required" : [ "userId", "isAdmin" ],
+        "properties" : {
+          "userId" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
           },
