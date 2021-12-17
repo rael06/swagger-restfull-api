@@ -177,7 +177,7 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user not owner of the server"
+            "description" : "user can only update his servers"
           },
           "404" : {
             "description" : "server not found"
@@ -227,6 +227,58 @@
           "in" : "path",
           "name" : "serverId",
           "description" : "pass the serverId you want to add a user",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AddUserToServerDto"
+              }
+            }
+          },
+          "description" : "user to add"
+        }
+      }
+    },
+    "/servers/{serverId}/users/{userId}" : {
+      "delete" : {
+        "tags" : [ "servers" ],
+        "summary" : "deletes a user of the server",
+        "operationId" : "deleteUserOfServer",
+        "description" : "Deletes a user of the server",
+        "responses" : {
+          "201" : {
+            "description" : "user deleted of the server"
+          },
+          "400" : {
+            "description" : "Something went wrong, try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only unsubscribe users from his servers"
+          },
+          "404" : {
+            "description" : "server or user not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "description" : "pass the serverId you want to delete a user from",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "userId",
+          "description" : "pass the userId you want to delete",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -361,7 +413,7 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user can only get messages of a channel on the subscribed server"
+            "description" : "user can only get messages of channels on subscribed servers"
           },
           "404" : {
             "description" : "channel not found"
@@ -427,6 +479,38 @@
           },
           "description" : "channel to update"
         }
+      },
+      "delete" : {
+        "tags" : [ "channels" ],
+        "summary" : "deletes a channel",
+        "operationId" : "deleteChannel",
+        "description" : "deletes a channel",
+        "responses" : {
+          "204" : {
+            "description" : "channel deleted"
+          },
+          "400" : {
+            "description" : "Something went wrong, please try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only delete his channels"
+          },
+          "404" : {
+            "description" : "channel not found"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "channelId",
+          "description" : "pass the id of the channel you want to delete",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
       }
     },
     "/messages/{messageId}" : {
@@ -489,7 +573,7 @@
             "description" : "message deleted"
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Something went wrong, please try again later"
           },
           "401" : {
             "description" : "user not authenticated"
@@ -504,7 +588,7 @@
         "parameters" : [ {
           "in" : "path",
           "name" : "messageId",
-          "description" : "pass the id of the message you want to update",
+          "description" : "pass the id of the message you want to delete",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -594,6 +678,20 @@
           "name" : {
             "type" : "string",
             "example" : "my-updated-channel-name"
+          }
+        }
+      },
+      "AddUserToServerDto" : {
+        "type" : "object",
+        "required" : [ "name" ],
+        "properties" : {
+          "userId" : {
+            "type" : "string",
+            "example" : "my-updated-channel-name"
+          },
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : false
           }
         }
       },
