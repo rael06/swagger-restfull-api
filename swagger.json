@@ -30,72 +30,27 @@
   }, {
     "name" : "messages",
     "description" : "Operations available to messages"
-  }, {
-    "name" : "admins",
-    "description" : "Operations available to admin users"
   } ],
   "paths" : {
     "/users" : {
-      "get" : {
-        "tags" : [ "admins" ],
-        "summary" : "searches inventory",
-        "operationId" : "searchInventory",
-        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
-        "parameters" : [ {
-          "in" : "query",
-          "name" : "searchString",
-          "description" : "pass an optional search string for looking up inventory",
-          "required" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "in" : "query",
-          "name" : "skip",
-          "description" : "number of records to skip for pagination",
-          "schema" : {
-            "type" : "integer",
-            "format" : "int32",
-            "minimum" : 0
-          }
-        }, {
-          "in" : "query",
-          "name" : "limit",
-          "description" : "maximum number of records to return",
-          "schema" : {
-            "type" : "integer",
-            "format" : "int32",
-            "minimum" : 0,
-            "maximum" : 50
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "search results matching criteria",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/UserCreateDto"
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "bad input parameter"
-          }
-        }
-      },
       "post" : {
         "tags" : [ "users" ],
-        "summary" : "creates a user",
+        "summary" : "Creates a user and returns the created user",
         "operationId" : "createUser",
-        "description" : "Creates a user in the system",
+        "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the user name.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserCreateDto"
+              }
+            }
+          }
+        },
         "responses" : {
           "201" : {
-            "description" : "user created",
+            "description" : "Created",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -105,35 +60,44 @@
             }
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Bad request"
           }
-        },
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UserCreateDto"
-              }
-            }
-          },
-          "description" : "user to create"
         }
       }
     },
     "/servers" : {
       "post" : {
         "tags" : [ "servers" ],
-        "summary" : "creates a server",
+        "summary" : "Creates a server and returns the server",
         "operationId" : "createServer",
-        "description" : "Creates a server",
+        "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the server name.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ServerCreateDto"
+              }
+            }
+          }
+        },
         "responses" : {
           "201" : {
-            "description" : "server created",
+            "description" : "Created",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ServerReadDto"
                 }
+              }
+            },
+            "links" : {
+              "GetServerById" : {
+                "operationId" : "getServer",
+                "parameters" : {
+                  "userId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as the `serverId` parameter in `GET /servers/{serverId}`.\n"
               }
             }
           },
@@ -143,26 +107,15 @@
           "401" : {
             "description" : "user not authenticated"
           }
-        },
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ServerCreateDto"
-              }
-            }
-          },
-          "description" : "server to create"
         }
       },
       "get" : {
         "tags" : [ "servers" ],
-        "summary" : "get servers",
+        "summary" : "Gets servers",
         "operationId" : "getServers",
-        "description" : "Get servers",
         "responses" : {
-          "201" : {
-            "description" : "servers",
+          "200" : {
+            "description" : "A list of server object",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -175,15 +128,46 @@
             }
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Bad request"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized"
           }
         }
       }
     },
     "/servers/{serverId}" : {
+      "get" : {
+        "tags" : [ "servers" ],
+        "summary" : "Gets a server by id",
+        "operationId" : "getServer",
+        "responses" : {
+          "200" : {
+            "description" : "A server object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
       "patch" : {
         "tags" : [ "servers" ],
         "summary" : "patches a server",
@@ -216,7 +200,7 @@
         "parameters" : [ {
           "in" : "path",
           "name" : "serverId",
-          "description" : "The id of the server you want to add a user",
+          "description" : "The id of the server you want to update",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -781,10 +765,6 @@
             "items" : {
               "$ref" : "#/components/schemas/ServerReadDto"
             }
-          },
-          "creationDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -808,20 +788,6 @@
           "name" : {
             "type" : "string",
             "example" : "my-server"
-          },
-          "users" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/SubscriberReadDto"
-            }
-          },
-          "creationDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
-          },
-          "updateDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -863,14 +829,6 @@
           "isAdmin" : {
             "type" : "boolean",
             "example" : false
-          },
-          "creationDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
-          },
-          "updateDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
@@ -908,14 +866,6 @@
           "name" : {
             "type" : "string",
             "example" : "my-channel"
-          },
-          "creationDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
-          },
-          "updateDate" : {
-            "type" : "string",
-            "example" : "2021-12-12T17:47:00+0200"
           }
         }
       },
