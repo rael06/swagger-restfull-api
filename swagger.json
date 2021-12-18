@@ -50,7 +50,47 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Created",
+            "description" : "Created:\n- The created user\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetUserById" : {
+                "operationId" : "getUser",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `userId` parameter in `GET /users/{userId}`.\n"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          }
+        }
+      }
+    },
+    "/users/{userId}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Gets a user by id",
+        "operationId" : "getUser",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "required" : true,
+          "description" : "The id of the user you want to get",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The user\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -60,7 +100,16 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Unauthorized:\n- User can only get his account\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- User not found\n"
           }
         }
       }
@@ -83,7 +132,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "The created server",
+            "description" : "Created:\n- The created server\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -115,7 +164,7 @@
         "operationId" : "getServers",
         "responses" : {
           "200" : {
-            "description" : "The collection of servers",
+            "description" : "Success:\n- The collection of servers\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -152,7 +201,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The server",
+            "description" : "Success:\n- The server\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -198,7 +247,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "The updated server",
+            "description" : "Success:\n- The updated server\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -258,7 +307,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "The created subscriber",
+            "description" : "Created:\n- The created subscriber\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -302,7 +351,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The collection of the server subscribers",
+            "description" : "Success:\n- The collection of the server subscribers\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -330,6 +379,44 @@
       }
     },
     "/subscribers/{subscriberId}" : {
+      "get" : {
+        "tags" : [ "subscribers" ],
+        "summary" : "Gets a subscriber by id",
+        "operationId" : "getSubscriber",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "subscriberId",
+          "required" : true,
+          "description" : "The id of the subscriber you want to get",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The subscriber\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SubscriberReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only get his subscription \n"
+          },
+          "404" : {
+            "description" : "Not found\n- Subscriber not found\n"
+          }
+        }
+      },
       "patch" : {
         "tags" : [ "subscribers" ],
         "summary" : "Updates a subscriber and returns it",
@@ -356,7 +443,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "The updated subscriber",
+            "description" : "Success:\n- The updated subscriber\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -390,26 +477,8 @@
       },
       "delete" : {
         "tags" : [ "subscribers" ],
-        "summary" : "deletes a subscriber",
+        "summary" : "Deletes a subscriber from the server",
         "operationId" : "deleteSubscriber",
-        "description" : "Deletes a subscriber from the server",
-        "responses" : {
-          "204" : {
-            "description" : "subscriber deleted"
-          },
-          "400" : {
-            "description" : "Something went wrong, try again later"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only delete subscribers from his servers"
-          },
-          "404" : {
-            "description" : "subscriber not found\n"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "subscriberId",
@@ -418,7 +487,24 @@
           "schema" : {
             "type" : "string"
           }
-        } ]
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content: \n- subscriber deleted\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only delete subscribers from his servers\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Subscriber not found\n"
+          }
+        }
       }
     },
     "/servers/{serverId}/channels" : {
