@@ -22,6 +22,9 @@
     "name" : "servers",
     "description" : "Operations available to servers"
   }, {
+    "name" : "subscribers",
+    "description" : "Operations available to subscribers"
+  }, {
     "name" : "channels",
     "description" : "Operations available to channels"
   }, {
@@ -99,7 +102,7 @@
         "description" : "Creates a user in the system",
         "operationId" : "createUser",
         "requestBody" : {
-          "description" : "user to add",
+          "description" : "user to create",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -126,13 +129,40 @@
       }
     },
     "/servers" : {
+      "get" : {
+        "tags" : [ "servers" ],
+        "summary" : "get servers",
+        "description" : "Get servers",
+        "operationId" : "getServers",
+        "responses" : {
+          "201" : {
+            "description" : "servers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServerReadDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          }
+        }
+      },
       "post" : {
         "tags" : [ "servers" ],
         "summary" : "creates a server",
         "description" : "Creates a server",
         "operationId" : "createServer",
         "requestBody" : {
-          "description" : "server to add",
+          "description" : "server to create",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -179,6 +209,7 @@
           }
         } ],
         "requestBody" : {
+          "description" : "server properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -213,16 +244,60 @@
         }
       }
     },
-    "/servers/{serverId}/users" : {
-      "post" : {
-        "tags" : [ "servers" ],
-        "summary" : "adds a user to the server",
-        "description" : "Adds a user to the server",
-        "operationId" : "addUserToServer",
+    "/servers/{serverId}/subscribers" : {
+      "get" : {
+        "tags" : [ "subscribers" ],
+        "summary" : "gets subscribers",
+        "description" : "Get the subscribers of the server",
+        "operationId" : "getSubscribers",
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the server you want to add a user",
+          "description" : "The id of the server you want to get the subscribers from",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "server subscribers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SubscriberReadDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong, please try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only get subscribers of subscribed servers"
+          },
+          "404" : {
+            "description" : "server not found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "subscribers" ],
+        "summary" : "creates a subscriber",
+        "description" : "Creates a subscriber of the server",
+        "operationId" : "createSubscriber",
+        "parameters" : [ {
+          "name" : "serverId",
+          "in" : "path",
+          "description" : "The id of the server where you want to create a subscriber",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -231,18 +306,18 @@
           }
         } ],
         "requestBody" : {
-          "description" : "user to add",
+          "description" : "subcriber to create",
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/ServerUserCreateDto"
+                "$ref" : "#/components/schemas/SubscriberCreateDto"
               }
             }
           }
         },
         "responses" : {
           "201" : {
-            "description" : "user added to the server"
+            "description" : "subscriber created"
           },
           "400" : {
             "description" : "invalid input, object invalid"
@@ -256,26 +331,16 @@
         }
       }
     },
-    "/servers/{serverId}/users/{userId}" : {
+    "/subscribers/{subscriberId}" : {
       "delete" : {
-        "tags" : [ "servers" ],
-        "summary" : "deletes a user of the server",
-        "description" : "Deletes a user of the server",
-        "operationId" : "deleteServerUser",
+        "tags" : [ "subscribers" ],
+        "summary" : "deletes a subscriber",
+        "description" : "Deletes a subscriber from the server",
+        "operationId" : "deleteSubscriber",
         "parameters" : [ {
-          "name" : "serverId",
+          "name" : "subscriberId",
           "in" : "path",
-          "description" : "The id of the server you want to delete a user from",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "userId",
-          "in" : "path",
-          "description" : "The id of the user you want to delete",
+          "description" : "The id of the subscriber you want to delete",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -285,7 +350,7 @@
         } ],
         "responses" : {
           "204" : {
-            "description" : "user deleted of the server"
+            "description" : "subscriber deleted"
           },
           "400" : {
             "description" : "Something went wrong, try again later"
@@ -294,32 +359,75 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user can only delete users from his servers"
+            "description" : "user can only delete subscribers from his servers"
           },
           "404" : {
-            "description" : "server or user not found"
+            "description" : "subscriber not found\n"
           }
         }
       },
       "patch" : {
-        "tags" : [ "servers" ],
-        "summary" : "update user role in the server",
-        "description" : "Updates user role in the server",
-        "operationId" : "updateServerUserRole",
+        "tags" : [ "subscribers" ],
+        "summary" : "update subscriber",
+        "description" : "Updates subscriber of the server",
+        "operationId" : "updateSubscriber",
         "parameters" : [ {
-          "name" : "serverId",
+          "name" : "subscriberId",
           "in" : "path",
-          "description" : "The id of the server you want to update a user role from",
+          "description" : "The id of the subscriber you want to update",
           "required" : true,
           "style" : "simple",
           "explode" : false,
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "userId",
+        } ],
+        "requestBody" : {
+          "description" : "subcriber properties to update",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SubscriberUpdateDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "subscriber updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SubscriberReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong, try again later"
+          },
+          "401" : {
+            "description" : "user not authenticated"
+          },
+          "403" : {
+            "description" : "user can only update subscribers from his servers"
+          },
+          "404" : {
+            "description" : "subscriber not found\n"
+          }
+        }
+      }
+    },
+    "/servers/{serverId}/channels" : {
+      "get" : {
+        "tags" : [ "channels" ],
+        "summary" : "gets channels",
+        "description" : "Get the channels of the server",
+        "operationId" : "getChannels",
+        "parameters" : [ {
+          "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the user you want to update the role",
+          "description" : "The id of the server you want to get the channels from",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -329,33 +437,41 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "user role in the server updated"
+            "description" : "server channels",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChannelReadDto"
+                  }
+                }
+              }
+            }
           },
           "400" : {
-            "description" : "Something went wrong, try again later"
+            "description" : "Something went wrong, please try again later"
           },
           "401" : {
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user can only update role of users from his servers"
+            "description" : "user can only get channels of subscribed servers"
           },
           "404" : {
-            "description" : "server or user not found"
+            "description" : "server not found"
           }
         }
-      }
-    },
-    "/servers/{serverId}/channels" : {
+      },
       "post" : {
-        "tags" : [ "servers" ],
-        "summary" : "adds a channel to the server",
-        "description" : "Adds a channel to the server",
-        "operationId" : "addChannelToServer",
+        "tags" : [ "channels" ],
+        "summary" : "creates a channel",
+        "description" : "Creates a channel in the server",
+        "operationId" : "createChannel",
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the server you want to add a channel",
+          "description" : "The id of the server you want to create a channel",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -364,7 +480,7 @@
           }
         } ],
         "requestBody" : {
-          "description" : "channel to add",
+          "description" : "channel to create",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -375,7 +491,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "channel added to the server",
+            "description" : "channel created",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -401,14 +517,14 @@
     },
     "/channels/{channelId}/messages" : {
       "get" : {
-        "tags" : [ "channels" ],
-        "summary" : "get messages of the channel",
-        "description" : "Gets all messages of the channel",
-        "operationId" : "getMessagesOfChannel",
+        "tags" : [ "messages" ],
+        "summary" : "get messages",
+        "description" : "Gets messages of the channel",
+        "operationId" : "getMessages",
         "parameters" : [ {
           "name" : "channelId",
           "in" : "path",
-          "description" : "The id of the channel you want to add the message",
+          "description" : "The id of the channel you want to get the messages",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -445,10 +561,10 @@
         }
       },
       "post" : {
-        "tags" : [ "channels" ],
-        "summary" : "creates a message in the channel",
-        "description" : "Creates a message to the channel",
-        "operationId" : "createMessageToChannel",
+        "tags" : [ "messages" ],
+        "summary" : "creates a message",
+        "description" : "Creates a message in the channel",
+        "operationId" : "createMessage",
         "parameters" : [ {
           "name" : "channelId",
           "in" : "path",
@@ -533,8 +649,8 @@
       },
       "patch" : {
         "tags" : [ "channels" ],
-        "summary" : "patches a channel",
-        "description" : "Patches a channel",
+        "summary" : "updates a channel",
+        "description" : "Updates a channel",
         "operationId" : "patchChannel",
         "parameters" : [ {
           "name" : "channelId",
@@ -548,7 +664,7 @@
           }
         } ],
         "requestBody" : {
-          "description" : "channel to update",
+          "description" : "channel properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -575,7 +691,7 @@
             "description" : "user not authenticated"
           },
           "403" : {
-            "description" : "user can only edit his channels"
+            "description" : "user can only update his channels"
           },
           "404" : {
             "description" : "channel not found"
@@ -635,7 +751,7 @@
           }
         } ],
         "requestBody" : {
-          "description" : "new content of the message",
+          "description" : "message properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -673,6 +789,16 @@
   },
   "components" : {
     "schemas" : {
+      "UserCreateDto" : {
+        "required" : [ "username" ],
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "example" : "my-pseudo"
+          }
+        }
+      },
       "UserReadDto" : {
         "type" : "object",
         "properties" : {
@@ -696,13 +822,13 @@
           }
         }
       },
-      "UserCreateDto" : {
-        "required" : [ "username" ],
+      "ServerCreateDto" : {
+        "required" : [ "name" ],
         "type" : "object",
         "properties" : {
-          "username" : {
+          "name" : {
             "type" : "string",
-            "example" : "my-pseudo"
+            "example" : "my-server"
           }
         }
       },
@@ -720,7 +846,7 @@
           "users" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/ServerUserReadDto"
+              "$ref" : "#/components/schemas/SubscriberReadDto"
             }
           },
           "creationDate" : {
@@ -730,16 +856,6 @@
           "updateDate" : {
             "type" : "string",
             "example" : "2021-12-12T17:47:00+0200"
-          }
-        }
-      },
-      "ServerCreateDto" : {
-        "required" : [ "name" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string",
-            "example" : "my-server"
           }
         }
       },
@@ -753,20 +869,7 @@
           }
         }
       },
-      "ServerUserReadDto" : {
-        "type" : "object",
-        "properties" : {
-          "userId" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
-          "isAdmin" : {
-            "type" : "boolean",
-            "example" : true
-          }
-        }
-      },
-      "ServerUserCreateDto" : {
+      "SubscriberCreateDto" : {
         "required" : [ "isAdmin", "userId" ],
         "type" : "object",
         "properties" : {
@@ -777,6 +880,51 @@
           "isAdmin" : {
             "type" : "boolean",
             "example" : false
+          }
+        }
+      },
+      "SubscriberReadDto" : {
+        "type" : "object",
+        "properties" : {
+          "userId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "serverId" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "creationDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
+          },
+          "updateDate" : {
+            "type" : "string",
+            "example" : "2021-12-12T17:47:00+0200"
+          }
+        }
+      },
+      "SubscriberUpdateDto" : {
+        "required" : [ "isAdmin" ],
+        "type" : "object",
+        "properties" : {
+          "isAdmin" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      },
+      "ChannelCreateDto" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "my-channel"
           }
         }
       },
@@ -805,8 +953,7 @@
           }
         }
       },
-      "ChannelCreateDto" : {
-        "required" : [ "name" ],
+      "ChannelUpdateDto" : {
         "type" : "object",
         "properties" : {
           "name" : {
@@ -815,12 +962,13 @@
           }
         }
       },
-      "ChannelUpdateDto" : {
+      "MessageCreateDto" : {
+        "required" : [ "content" ],
         "type" : "object",
         "properties" : {
-          "name" : {
+          "content" : {
             "type" : "string",
-            "example" : "my-channel"
+            "example" : "my-content"
           }
         }
       },
@@ -850,16 +998,6 @@
           "updateDate" : {
             "type" : "string",
             "example" : "2021-12-12T17:47:00+0200"
-          }
-        }
-      },
-      "MessageCreateDto" : {
-        "required" : [ "content" ],
-        "type" : "object",
-        "properties" : {
-          "content" : {
-            "type" : "string",
-            "example" : "my-content"
           }
         }
       },
