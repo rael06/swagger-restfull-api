@@ -283,7 +283,7 @@
     "/servers/{serverId}/subscribers" : {
       "post" : {
         "tags" : [ "subscribers" ],
-        "summary" : "Creates a subscriber in the server and returns it",
+        "summary" : "Creates a subscriber in a server and returns it",
         "operationId" : "createSubscriber",
         "parameters" : [ {
           "in" : "path",
@@ -338,7 +338,7 @@
       },
       "get" : {
         "tags" : [ "subscribers" ],
-        "summary" : "Gets subscribers",
+        "summary" : "Gets subscribers of a server",
         "operationId" : "getSubscribers",
         "parameters" : [ {
           "in" : "path",
@@ -370,7 +370,7 @@
             "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get subscribers of subscribed servers\n"
+            "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
           },
           "404" : {
             "description" : "Not found\n- Server not found\n"
@@ -510,7 +510,7 @@
     "/servers/{serverId}/channels" : {
       "post" : {
         "tags" : [ "channels" ],
-        "summary" : "Creates a channel in the server and returns it",
+        "summary" : "Creates a channel in a server and returns it",
         "operationId" : "createChannel",
         "parameters" : [ {
           "in" : "path",
@@ -568,13 +568,13 @@
       },
       "get" : {
         "tags" : [ "channels" ],
-        "summary" : "Gets channels",
+        "summary" : "Gets channels of a server",
         "operationId" : "getChannels",
         "parameters" : [ {
           "in" : "path",
           "name" : "serverId",
           "required" : true,
-          "description" : "The id of the server from which you want to get the channel",
+          "description" : "The id of the server from which you want to get the channels",
           "schema" : {
             "type" : "string"
           }
@@ -600,7 +600,7 @@
             "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get channels of subscribed servers\n"
+            "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
           },
           "404" : {
             "description" : "Not found\n- Server not found\n"
@@ -640,7 +640,7 @@
             "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get channels of subscribed servers\n"
+            "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
           },
           "404" : {
             "description" : "Not found\n- Channel not found\n"
@@ -740,61 +740,78 @@
     "/channels/{channelId}/messages" : {
       "post" : {
         "tags" : [ "messages" ],
-        "summary" : "creates a message",
+        "summary" : "Creates a message in a channel and returns it",
         "operationId" : "createMessage",
-        "description" : "Creates a message in the channel",
-        "responses" : {
-          "201" : {
-            "description" : "message created in the channel",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/MessageReadDto"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only create messages on a subscribed server"
-          },
-          "404" : {
-            "description" : "channel not found"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "channelId",
-          "description" : "The id of the channel you want to add the message",
           "required" : true,
+          "description" : "The id of the channel in which you want to create a message",
           "schema" : {
             "type" : "string"
           }
         } ],
         "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the content of the message",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/MessageCreateDto"
               }
             }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created:\n- The created message\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MessageReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetMessageById" : {
+                "operationId" : "getMessage",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `messageId` parameter in `GET /messages/{messageId}`\n"
+              }
+            }
           },
-          "description" : "message to add"
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only create messages on channels of its subscribed servers\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Channel not found\n"
+          }
         }
       },
       "get" : {
         "tags" : [ "messages" ],
-        "summary" : "get messages",
+        "summary" : "Gets messages of a channel",
         "operationId" : "getMessages",
-        "description" : "Gets messages of the channel",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "channelId",
+          "required" : true,
+          "description" : "The id of the channel from which you want to get the messages",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
-            "description" : "messages of the channel",
+            "description" : "Success:\n- The collection of the channel messages\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -807,30 +824,59 @@
             }
           },
           "400" : {
-            "description" : "something went wrong, please retry later"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "user can only get messages of channels on subscribed servers"
+            "description" : "Forbidden:\n- User can only get messages from channels of its subscribed servers\n"
           },
           "404" : {
-            "description" : "channel not found"
+            "description" : "Not found\n- Channel not found\n"
           }
-        },
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "channelId",
-          "description" : "The id of the channel you want to get the messages",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ]
+        }
       }
     },
     "/messages/{messageId}" : {
+      "get" : {
+        "tags" : [ "messages" ],
+        "summary" : "Gets a message by id",
+        "operationId" : "getMessage",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "messageId",
+          "required" : true,
+          "description" : "The id of the message you want to get",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The message\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MessageReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only get messages of its subscribed servers\n"
+          },
+          "404" : {
+            "description" : "Not found\n- Message not found\n"
+          }
+        }
+      },
       "patch" : {
         "tags" : [ "messages" ],
         "summary" : "updates a message",
