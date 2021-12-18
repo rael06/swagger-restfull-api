@@ -35,7 +35,7 @@
     "/users" : {
       "post" : {
         "tags" : [ "users" ],
-        "summary" : "Creates a user and returns the created user",
+        "summary" : "Creates a user and returns him",
         "operationId" : "createUser",
         "requestBody" : {
           "required" : true,
@@ -60,7 +60,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
           }
         }
       }
@@ -68,7 +68,7 @@
     "/servers" : {
       "post" : {
         "tags" : [ "servers" ],
-        "summary" : "Creates a server and returns the server",
+        "summary" : "Creates a server and returns it",
         "operationId" : "createServer",
         "requestBody" : {
           "required" : true,
@@ -83,7 +83,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Created",
+            "description" : "The created server",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -95,17 +95,17 @@
               "GetServerById" : {
                 "operationId" : "getServer",
                 "parameters" : {
-                  "userId" : "$response.body#/id"
+                  "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as the `serverId` parameter in `GET /servers/{serverId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`.\n"
               }
             }
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized:\n- User not authenticated\n"
           }
         }
       },
@@ -115,7 +115,7 @@
         "operationId" : "getServers",
         "responses" : {
           "200" : {
-            "description" : "A list of server object",
+            "description" : "The collection of servers",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -128,10 +128,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request"
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized"
+            "description" : "Unauthorized:\n- User not authenticated\n"
           }
         }
       }
@@ -141,41 +141,18 @@
         "tags" : [ "servers" ],
         "summary" : "Gets a server by id",
         "operationId" : "getServer",
-        "responses" : {
-          "200" : {
-            "description" : "A server object",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ServerReadDto"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Bad request"
-          },
-          "401" : {
-            "description" : "Unauthorized"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "serverId",
           "required" : true,
+          "description" : "The id of the server you want to get",
           "schema" : {
             "type" : "string"
           }
-        } ]
-      },
-      "patch" : {
-        "tags" : [ "servers" ],
-        "summary" : "patches a server",
-        "operationId" : "patchServer",
-        "description" : "Patches a server",
+        } ],
         "responses" : {
           "200" : {
-            "description" : "server updated",
+            "description" : "The server",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -185,87 +162,147 @@
             }
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
           },
           "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only update his servers"
+            "description" : "Unauthorized:\n- User not authenticated\n"
           },
           "404" : {
-            "description" : "server not found"
+            "description" : "Not found:\n- Server not found\n"
           }
-        },
+        }
+      },
+      "patch" : {
+        "tags" : [ "servers" ],
+        "summary" : "Updates a server and returns it",
+        "operationId" : "updateServer",
         "parameters" : [ {
           "in" : "path",
           "name" : "serverId",
-          "description" : "The id of the server you want to update",
           "required" : true,
+          "description" : "The id of the server you want to update",
           "schema" : {
             "type" : "string"
           }
         } ],
         "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the server properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/ServerUpdateDto"
               }
             }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The updated server",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetServerById" : {
+                "operationId" : "getServer",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`.\n"
+              }
+            }
           },
-          "description" : "server properties to update"
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only update his servers\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Server not found\n"
+          }
         }
       }
     },
     "/servers/{serverId}/subscribers" : {
       "post" : {
         "tags" : [ "subscribers" ],
-        "summary" : "creates a subscriber",
+        "summary" : "Creates a subscriber in the server and returns it",
         "operationId" : "createSubscriber",
-        "description" : "Creates a subscriber of the server",
-        "responses" : {
-          "201" : {
-            "description" : "subscriber created"
-          },
-          "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "404" : {
-            "description" : "server not found"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "serverId",
-          "description" : "The id of the server where you want to create a subscriber",
           "required" : true,
+          "description" : "The id of the server in which you want to create a subscriber",
           "schema" : {
             "type" : "string"
           }
         } ],
         "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the id of the related user and a boolean for the server administration role.",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/SubscriberCreateDto"
               }
             }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "The created subscriber",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SubscriberReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetSubscriberById" : {
+                "operationId" : "getSubscriber",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`.\n"
+              }
+            }
           },
-          "description" : "subcriber to create"
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- server not found\n"
+          }
         }
       },
       "get" : {
         "tags" : [ "subscribers" ],
-        "summary" : "gets subscribers",
+        "summary" : "Gets subscribers",
         "operationId" : "getSubscribers",
-        "description" : "Get the subscribers of the server",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "required" : true,
+          "description" : "The id of the server from which you want to get the subscribers",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
-            "description" : "server subscribers",
+            "description" : "The collection of the server subscribers",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -278,77 +315,77 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong, please try again later"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "user can only get subscribers of subscribed servers"
+            "description" : "Forbidden:\n- User can only get subscribers of subscribed servers\n"
           },
           "404" : {
-            "description" : "server not found"
+            "description" : "Not found\n- Server not found\n"
           }
-        },
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "serverId",
-          "description" : "The id of the server you want to get the subscribers from",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ]
+        }
       }
     },
     "/subscribers/{subscriberId}" : {
       "patch" : {
         "tags" : [ "subscribers" ],
-        "summary" : "update subscriber",
+        "summary" : "Updates a subscriber and returns it",
         "operationId" : "updateSubscriber",
-        "description" : "Updates subscriber of the server",
-        "responses" : {
-          "200" : {
-            "description" : "subscriber updated",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/SubscriberReadDto"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Something went wrong, try again later"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only update subscribers from his servers"
-          },
-          "404" : {
-            "description" : "subscriber not found\n"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "subscriberId",
-          "description" : "The id of the subscriber you want to update",
           "required" : true,
+          "description" : "The id of the subscriber you want to update",
           "schema" : {
             "type" : "string"
           }
         } ],
         "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the subscriber properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/SubscriberUpdateDto"
               }
             }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The updated subscriber",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SubscriberReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetSubscriberById" : {
+                "operationId" : "getSubscriber",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`.\n"
+              }
+            }
           },
-          "description" : "subcriber properties to update"
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only update subscribers from his servers\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Subscriber not found\n"
+          }
         }
       },
       "delete" : {
@@ -745,6 +782,7 @@
         "properties" : {
           "username" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-pseudo"
           }
         }
@@ -752,6 +790,10 @@
       "UserReadDto" : {
         "type" : "object",
         "properties" : {
+          "link" : {
+            "type" : "string",
+            "example" : "https://my-api.com/api/users/a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
           "id" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
@@ -774,6 +816,7 @@
         "properties" : {
           "name" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-server"
           }
         }
@@ -781,6 +824,10 @@
       "ServerReadDto" : {
         "type" : "object",
         "properties" : {
+          "link" : {
+            "type" : "string",
+            "example" : "https://my-api.com/api/servers/a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
           "id" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
@@ -797,6 +844,7 @@
         "properties" : {
           "name" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-updated-channel-name"
           }
         }
@@ -818,6 +866,14 @@
       "SubscriberReadDto" : {
         "type" : "object",
         "properties" : {
+          "link" : {
+            "type" : "string",
+            "example" : "https://my-api.com/api/subscribers/a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
           "userId" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
@@ -848,6 +904,7 @@
         "properties" : {
           "name" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-channel"
           }
         }
@@ -855,6 +912,10 @@
       "ChannelReadDto" : {
         "type" : "object",
         "properties" : {
+          "link" : {
+            "type" : "string",
+            "example" : "https://my-api.com/api/channels/a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
           "id" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
@@ -874,6 +935,7 @@
         "properties" : {
           "name" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-channel"
           }
         }
@@ -884,6 +946,7 @@
         "properties" : {
           "content" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-content"
           }
         }
@@ -891,6 +954,10 @@
       "MessageReadDto" : {
         "type" : "object",
         "properties" : {
+          "link" : {
+            "type" : "string",
+            "example" : "https://my-api.com/api/messages/a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
           "id" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
@@ -923,6 +990,7 @@
         "properties" : {
           "content" : {
             "type" : "string",
+            "description" : "cannot be empty",
             "example" : "my-new-content"
           }
         }
