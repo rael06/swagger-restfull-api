@@ -278,6 +278,37 @@
             "description" : "Not found:\n- Server not found\n"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "servers" ],
+        "summary" : "Deletes a server",
+        "operationId" : "deleteServer",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "serverId",
+          "description" : "The id of the server you want to delete",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content: \n- Server deleted\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only delete servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Server not found\n"
+          }
+        }
       }
     },
     "/servers/{serverId}/subscribers" : {
@@ -682,7 +713,7 @@
               }
             },
             "links" : {
-              "GetSubscriberById" : {
+              "GetChannelById" : {
                 "operationId" : "getChannel",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
@@ -912,7 +943,7 @@
               }
             },
             "links" : {
-              "GetSubscriberById" : {
+              "GetMessageById" : {
                 "operationId" : "getMessage",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
