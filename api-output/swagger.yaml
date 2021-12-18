@@ -38,7 +38,7 @@
         "summary" : "Creates a user and returns him",
         "operationId" : "createUser",
         "requestBody" : {
-          "description" : "A JSON object that contains the user name.",
+          "description" : "A JSON object that contains the user name",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -64,7 +64,7 @@
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as\nthe `userId` parameter in `GET /users/{userId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `userId` parameter in `GET /users/{userId}`\n"
               }
             }
           },
@@ -148,7 +148,7 @@
         "summary" : "Creates a server and returns it",
         "operationId" : "createServer",
         "requestBody" : {
-          "description" : "A JSON object that contains the server name.",
+          "description" : "A JSON object that contains the server name",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -174,7 +174,7 @@
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`\n"
               }
             }
           },
@@ -267,7 +267,7 @@
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `serverId` parameter in `GET /servers/{serverId}`\n"
               }
             }
           },
@@ -278,7 +278,7 @@
             "description" : "Unauthorized:\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update his servers\n"
+            "description" : "Forbidden:\n- User can only update servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
@@ -346,7 +346,7 @@
           }
         } ],
         "requestBody" : {
-          "description" : "A JSON object that contains the id of the related user and a boolean for the server administration role.",
+          "description" : "A JSON object that contains the id of the related user and a boolean for the server administration role",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -372,7 +372,7 @@
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`\n"
               }
             }
           },
@@ -422,7 +422,7 @@
             "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get his subscription \n"
+            "description" : "Forbidden:\n- User can only get his subscription\n- User can only get subscribers of servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found\n- Subscriber not found\n"
@@ -431,7 +431,7 @@
       },
       "delete" : {
         "tags" : [ "subscribers" ],
-        "summary" : "Deletes a subscriber from the server",
+        "summary" : "Deletes a subscriber",
         "operationId" : "deleteSubscriber",
         "parameters" : [ {
           "name" : "subscriberId",
@@ -446,16 +446,16 @@
         } ],
         "responses" : {
           "204" : {
-            "description" : "No content: \n- subscriber deleted\n"
+            "description" : "No content: \n- Subscriber deleted\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete subscribers from his servers\n"
+            "description" : "Forbidden:\n- User can only delete subscribers from servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Subscriber not found\n"
@@ -504,7 +504,7 @@
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
-                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`.\n"
+                "description" : "The `id` value returned in the response can be used as\nthe `subscriberId` parameter in `GET /subscribers/{subscriberId}`\n"
               }
             }
           },
@@ -515,7 +515,7 @@
             "description" : "Unauthorized:\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update subscribers from his servers\n"
+            "description" : "Forbidden:\n- User can only update subscribers from servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Subscriber not found\n"
@@ -526,13 +526,12 @@
     "/servers/{serverId}/channels" : {
       "get" : {
         "tags" : [ "channels" ],
-        "summary" : "gets channels",
-        "description" : "Get the channels of the server",
+        "summary" : "Gets channels",
         "operationId" : "getChannels",
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the server you want to get the channels from",
+          "description" : "The id of the server from which you want to get the channel",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -542,7 +541,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "server channels",
+            "description" : "Success:\n- The collection of the server channels\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -555,28 +554,27 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong, please try again later"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "user can only get channels of subscribed servers"
+            "description" : "Forbidden:\n- User can only get channels of subscribed servers\n"
           },
           "404" : {
-            "description" : "server not found"
+            "description" : "Not found\n- Server not found\n"
           }
         }
       },
       "post" : {
         "tags" : [ "channels" ],
-        "summary" : "creates a channel",
-        "description" : "Creates a channel in the server",
+        "summary" : "Creates a channel in the server and returns it",
         "operationId" : "createChannel",
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the server you want to create a channel",
+          "description" : "The id of the server in which you want to create a channel",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -585,18 +583,70 @@
           }
         } ],
         "requestBody" : {
-          "description" : "channel to create",
+          "description" : "A JSON object that contains the name of the channel",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/ChannelCreateDto"
               }
             }
-          }
+          },
+          "required" : true
         },
         "responses" : {
           "201" : {
-            "description" : "channel created",
+            "description" : "Created:\n- The created channel\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChannelReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetChannelById" : {
+                "operationId" : "getChannel",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `channelId` parameter in `GET /channels/{channelId}`\n"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only create channels on servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- server not found\n"
+          }
+        }
+      }
+    },
+    "/channels/{channelId}" : {
+      "get" : {
+        "tags" : [ "channels" ],
+        "summary" : "Gets a channel by id",
+        "operationId" : "getChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "The id of the channel you want to get",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The channel\n",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -606,16 +656,109 @@
             }
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "user not authenticated"
+            "description" : "Unauthorized\n- User not authenticated\n"
           },
           "403" : {
-            "description" : "user can only create channels on his servers"
+            "description" : "Forbidden:\n- User can only get channels of subscribed servers\n"
           },
           "404" : {
-            "description" : "server not found"
+            "description" : "Not found\n- Channel not found\n"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "channels" ],
+        "summary" : "Deletes a channel",
+        "operationId" : "deleteChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "The id of the channel you want to delete",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content: \n- Channel deleted\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only delete channels from servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Channel not found\n"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "channels" ],
+        "summary" : "Updates a channel and returns it",
+        "operationId" : "updateChannel",
+        "parameters" : [ {
+          "name" : "channelId",
+          "in" : "path",
+          "description" : "The id of the channel you want to update",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "A JSON object that contains the channel properties to update",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChannelUpdateDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The updated channel\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChannelReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetSubscriberById" : {
+                "operationId" : "getChannel",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `channelId` parameter in `GET /channels/{channelId}`\n"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only update channels from servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Channel not found\n"
           }
         }
       }
@@ -710,93 +853,6 @@
           },
           "403" : {
             "description" : "user can only create messages on a subscribed server"
-          },
-          "404" : {
-            "description" : "channel not found"
-          }
-        }
-      }
-    },
-    "/channels/{channelId}" : {
-      "delete" : {
-        "tags" : [ "channels" ],
-        "summary" : "deletes a channel",
-        "description" : "deletes a channel",
-        "operationId" : "deleteChannel",
-        "parameters" : [ {
-          "name" : "channelId",
-          "in" : "path",
-          "description" : "The id of the channel you want to delete",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "204" : {
-            "description" : "channel deleted"
-          },
-          "400" : {
-            "description" : "Something went wrong, please try again later"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only delete his channels"
-          },
-          "404" : {
-            "description" : "channel not found"
-          }
-        }
-      },
-      "patch" : {
-        "tags" : [ "channels" ],
-        "summary" : "updates a channel",
-        "description" : "Updates a channel",
-        "operationId" : "patchChannel",
-        "parameters" : [ {
-          "name" : "channelId",
-          "in" : "path",
-          "description" : "The id of the channel you want to update",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "channel properties to update",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ChannelUpdateDto"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "channel updated",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ChannelReadDto"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only update his channels"
           },
           "404" : {
             "description" : "channel not found"
