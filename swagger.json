@@ -879,75 +879,66 @@
       },
       "patch" : {
         "tags" : [ "messages" ],
-        "summary" : "updates a message",
-        "operationId" : "upadateMessage",
-        "description" : "updates a message",
-        "responses" : {
-          "200" : {
-            "description" : "message updated",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/MessageReadDto"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only update his messages"
-          },
-          "404" : {
-            "description" : "message not found"
-          }
-        },
+        "summary" : "Updates a message and returns it",
+        "operationId" : "updateMessage",
         "parameters" : [ {
           "in" : "path",
           "name" : "messageId",
-          "description" : "The id of the message you want to update",
           "required" : true,
+          "description" : "The id of the message you want to update",
           "schema" : {
             "type" : "string"
           }
         } ],
         "requestBody" : {
+          "required" : true,
+          "description" : "A JSON object that contains the message properties to update",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/MessageUpdateDto"
               }
             }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The updated message\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MessageReadDto"
+                }
+              }
+            },
+            "links" : {
+              "GetSubscriberById" : {
+                "operationId" : "getMessage",
+                "parameters" : {
+                  "serverId" : "$response.body#/id"
+                },
+                "description" : "The `id` value returned in the response can be used as\nthe `messageId` parameter in `GET /messages/{messageId}`\n"
+              }
+            }
           },
-          "description" : "message properties to update"
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only update messages from servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Message not found\n"
+          }
         }
       },
       "delete" : {
         "tags" : [ "messages" ],
-        "summary" : "deletes a message",
+        "summary" : "Deletes a message",
         "operationId" : "deleteMessage",
-        "description" : "deletes a message",
-        "responses" : {
-          "204" : {
-            "description" : "message deleted"
-          },
-          "400" : {
-            "description" : "Something went wrong, please try again later"
-          },
-          "401" : {
-            "description" : "user not authenticated"
-          },
-          "403" : {
-            "description" : "user can only delete his messages"
-          },
-          "404" : {
-            "description" : "message not found"
-          }
-        },
         "parameters" : [ {
           "in" : "path",
           "name" : "messageId",
@@ -956,7 +947,24 @@
           "schema" : {
             "type" : "string"
           }
-        } ]
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content: \n- Message deleted\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- User can only delete messages from servers whose he is an administrator\n"
+          },
+          "404" : {
+            "description" : "Not found:\n- Message not found\n"
+          }
+        }
       }
     }
   },
