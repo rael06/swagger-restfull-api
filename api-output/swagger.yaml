@@ -1043,13 +1043,18 @@
   "components" : {
     "schemas" : {
       "UserCreateDto" : {
-        "required" : [ "userName" ],
+        "required" : [ "password", "userName" ],
         "type" : "object",
         "properties" : {
           "userName" : {
             "type" : "string",
             "description" : "cannot be empty",
             "example" : "my-pseudo"
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "cannot be empty",
+            "example" : "Password1234."
           }
         }
       },
