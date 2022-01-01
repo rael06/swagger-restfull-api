@@ -1006,12 +1006,17 @@
     "schemas" : {
       "UserCreateDto" : {
         "type" : "object",
-        "required" : [ "userName" ],
+        "required" : [ "userName", "password" ],
         "properties" : {
           "userName" : {
             "type" : "string",
             "description" : "cannot be empty",
             "example" : "my-pseudo"
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "cannot be empty",
+            "example" : "Password1234."
           }
         }
       },
