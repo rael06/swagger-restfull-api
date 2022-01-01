@@ -14,6 +14,9 @@
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/rael06/restfull-api/1.0.0",
     "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/api",
+    "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
     "name" : "users",
@@ -1040,7 +1043,7 @@
   "components" : {
     "schemas" : {
       "UserCreateDto" : {
-        "required" : [ "username" ],
+        "required" : [ "userName" ],
         "type" : "object",
         "properties" : {
           "username" : {
@@ -1061,7 +1064,7 @@
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
           },
-          "username" : {
+          "userName" : {
             "type" : "string",
             "example" : "my-pseudo"
           },
