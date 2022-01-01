@@ -1008,7 +1008,7 @@
         "type" : "object",
         "required" : [ "userName" ],
         "properties" : {
-          "username" : {
+          "userName" : {
             "type" : "string",
             "description" : "cannot be empty",
             "example" : "my-pseudo"
