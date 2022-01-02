@@ -14,9 +14,6 @@
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/rael06/restfull-api/1.0.0",
     "description" : "SwaggerHub API Auto Mocking"
-  }, {
-    "url" : "https://virtserver.swaggerhub.com/api",
-    "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
     "name" : "users",
