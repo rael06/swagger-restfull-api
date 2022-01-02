@@ -16,6 +16,9 @@
     "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
+    "name" : "trials",
+    "description" : "Operations available to try the api"
+  }, {
     "name" : "users",
     "description" : "Operations available to users"
   }, {
@@ -32,6 +35,39 @@
     "description" : "Operations available to messages"
   } ],
   "paths" : {
+    "/trials/anonymous" : {
+      "get" : {
+        "tags" : [ "trials" ],
+        "summary" : "Tries the api as anonymous",
+        "operationId" : "tryApiAsAnonymous",
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- DiscordApi is running, you are anonymous\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          }
+        }
+      }
+    },
+    "/trials/authenticated" : {
+      "get" : {
+        "tags" : [ "trials" ],
+        "summary" : "Tries the api as authenticated",
+        "operationId" : "tryApiAsAuthenticated",
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- DiscordApi is running, you are authenticated\n"
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- User not authenticated\n"
+          }
+        }
+      }
+    },
     "/users" : {
       "post" : {
         "tags" : [ "users" ],
