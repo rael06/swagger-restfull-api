@@ -72,7 +72,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- User with provided userName already exists\n"
           }
         }
       }
@@ -154,10 +157,13 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- Server with provided name already exists\n"
           }
         }
       },
@@ -269,7 +275,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred.\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
@@ -279,6 +285,9 @@
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- Server with provided name already exists\n"
           }
         }
       },
@@ -360,13 +369,16 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
           },
           "404" : {
             "description" : "Not found:\n- server not found\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- Subscriber with provided userId already exists\n"
           }
         }
       },
@@ -496,7 +508,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
@@ -587,7 +599,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
@@ -597,6 +609,9 @@
           },
           "404" : {
             "description" : "Not found:\n- server not found\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- Channel with provided name already exists\n"
           }
         }
       },
@@ -726,7 +741,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
@@ -736,6 +751,9 @@
           },
           "404" : {
             "description" : "Not found:\n- Channel not found\n"
+          },
+          "409" : {
+            "description" : "Conflict:\n- Channel with provided name already exists\n"
           }
         }
       },
@@ -817,7 +835,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
@@ -956,7 +974,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- Invalid input, object invalid\n"
+            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
