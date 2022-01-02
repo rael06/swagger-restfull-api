@@ -54,7 +54,7 @@
             "description" : "Success:\n- DiscordApi is running, you are anonymous\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           }
         }
       }
@@ -69,10 +69,10 @@
             "description" : "Success:\n- DiscordApi is running, you are authenticated\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           }
         }
       }
@@ -105,7 +105,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized\n"
           }
         }
       }
@@ -147,7 +150,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "409" : {
             "description" : "Conflict:\n- User with provided userName already exists\n"
@@ -183,10 +186,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Unauthorized:\n- User can only get his account\n"
@@ -217,10 +220,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           }
         }
       },
@@ -260,10 +263,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "409" : {
             "description" : "Conflict:\n- Server with provided name already exists\n"
@@ -299,10 +302,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
@@ -329,10 +332,10 @@
             "description" : "No content: \n- Server deleted\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete servers whose he is an administrator\n"
@@ -389,10 +392,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred.\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred.\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update servers whose he is an administrator\n"
@@ -497,10 +500,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "404" : {
             "description" : "Not found:\n- server not found\n"
@@ -572,10 +575,10 @@
             "description" : "No content: \n- Subscriber deleted\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete subscribers from servers whose he is an administrator\n"
@@ -632,10 +635,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update subscribers from servers whose he is an administrator\n"
@@ -737,10 +740,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only create channels on servers whose he is an administrator\n"
@@ -815,10 +818,10 @@
             "description" : "No content: \n- Channel deleted\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete channels from servers whose he is an administrator\n"
@@ -875,10 +878,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update channels from servers whose he is an administrator\n"
@@ -983,10 +986,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only create messages on channels of its subscribed servers\n"
@@ -1058,10 +1061,10 @@
             "description" : "No content: \n- Message deleted\n"
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete messages from servers whose he is an administrator\n"
@@ -1118,10 +1121,10 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- User not authenticated\n"
+            "description" : "Unauthorized\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update messages from servers whose he is an administrator\n"
