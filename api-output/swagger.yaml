@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "Simple Inventory API",
-    "description" : "This is a simple API",
+    "description" : "- This is a simple Discord API like.\n- It uses Json web token as authentication way.\n- Once you created a user, you will be able to login.\n- Then use the returned Token in requests headers\n- JWT Authorization header using the Bearer scheme. \n- Example: \\\"Authorization: Bearer {token}\\\"\n",
     "contact" : {
       "email" : "rael.calitro@ynov.com"
     },
@@ -13,6 +13,9 @@
   },
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/rael06/restfull-api/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://localhost:5029",
     "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
