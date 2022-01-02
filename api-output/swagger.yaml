@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "title" : "Simple Inventory API",
+    "title" : "DiscordApi API definition",
     "description" : "- This is a simple Discord API like.\n- It uses Json web token as authentication way.\n- Once you created a user, you will be able to login.\n- Then use the returned Token in requests headers\n- JWT Authorization header using the Bearer scheme. \n- Example: \\\"Authorization: Bearer {token}\\\"\n",
     "contact" : {
       "email" : "rael.calitro@ynov.com"
@@ -24,6 +24,9 @@
   "tags" : [ {
     "name" : "trials",
     "description" : "Operations available to try the api"
+  }, {
+    "name" : "authentication",
+    "description" : "Operations available for authentication"
   }, {
     "name" : "users",
     "description" : "Operations available to users"
@@ -70,6 +73,39 @@
           },
           "401" : {
             "description" : "Unauthorized:\n- User not authenticated\n"
+          }
+        }
+      }
+    },
+    "/authentication/login" : {
+      "post" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Login a user and returns an access token as Json Web Token",
+        "operationId" : "login",
+        "requestBody" : {
+          "description" : "A JSON object that contains the user name and password",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserLoginDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The access token\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccessTokenDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, try again later\n"
           }
         }
       }
@@ -1099,6 +1135,31 @@
   },
   "components" : {
     "schemas" : {
+      "UserLoginDto" : {
+        "required" : [ "password", "userName" ],
+        "type" : "object",
+        "properties" : {
+          "userName" : {
+            "type" : "string",
+            "description" : "cannot be empty",
+            "example" : "my-pseudo"
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "cannot be empty",
+            "example" : "Password1234."
+          }
+        }
+      },
+      "AccessTokenDto" : {
+        "type" : "object",
+        "properties" : {
+          "accessToken" : {
+            "type" : "string",
+            "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImFlNTcxOGJkLWY5NzktNDQ1Ni04MmRlLTBjNzgzMzk4NzYzNCIsImp0aSI6IjBjZjc3NGYwLTUxYWQtNDM4Yi1hNTZlLTI1N2VlZGRhMjQ0MCIsIm5iZiI6MTY0MTEzNzMxMCwiZXhwIjoxNjQxMTU4OTEwLCJpYXQiOjE2NDExMzczMTB9.q1VaAodjovu79AyBNbrSxu4yZ4vOlDZQF2IyDvcsbJM\n"
+          }
+        }
+      },
       "UserCreateDto" : {
         "required" : [ "password", "userName" ],
         "type" : "object",
