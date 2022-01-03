@@ -147,7 +147,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Invalid token\n"
           }
         }
       }
