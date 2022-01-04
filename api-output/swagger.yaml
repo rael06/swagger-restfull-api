@@ -166,6 +166,31 @@
         }
       }
     },
+    "/authentication/current-user" : {
+      "get" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Gets the authenticated and identified user by token",
+        "operationId" : "getCurrentUser",
+        "responses" : {
+          "200" : {
+            "description" : "Success:\n- The current user\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserReadDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
+          },
+          "401" : {
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
+          }
+        }
+      }
+    },
     "/users" : {
       "post" : {
         "tags" : [ "users" ],
