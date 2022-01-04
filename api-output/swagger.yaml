@@ -75,7 +75,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           }
         }
       }
@@ -111,7 +111,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           }
         }
       }
@@ -147,7 +147,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Invalid token, please login to generate new valid tokens\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens:\n- Invalid tokens, please login to generate new valid tokens\n"
           }
         }
       }
@@ -228,10 +228,10 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Unauthorized:\n- User can only get his account\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens:\n- User can only get his account\n"
           },
           "404" : {
             "description" : "Not found:\n- User not found\n"
@@ -262,7 +262,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           }
         }
       },
@@ -305,7 +305,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "409" : {
             "description" : "Conflict:\n- Server with provided name already exists\n"
@@ -344,7 +344,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
@@ -374,7 +374,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete servers whose he is an administrator\n"
@@ -434,7 +434,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred.\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update servers whose he is an administrator\n"
@@ -482,7 +482,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
@@ -542,7 +542,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "404" : {
             "description" : "Not found:\n- server not found\n"
@@ -584,7 +584,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get his subscription\n- User can only get subscribers of servers whose he is an administrator\n"
@@ -617,7 +617,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete subscribers from servers whose he is an administrator\n"
@@ -677,7 +677,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update subscribers from servers whose he is an administrator\n"
@@ -722,7 +722,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
@@ -782,7 +782,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only create channels on servers whose he is an administrator\n"
@@ -827,7 +827,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
@@ -860,7 +860,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete channels from servers whose he is an administrator\n"
@@ -920,7 +920,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update channels from servers whose he is an administrator\n"
@@ -968,7 +968,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get messages from channels of its subscribed servers\n"
@@ -1028,7 +1028,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only create messages on channels of its subscribed servers\n"
@@ -1070,7 +1070,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get messages of its subscribed servers\n"
@@ -1103,7 +1103,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only delete messages from servers whose he is an administrator\n"
@@ -1163,7 +1163,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
           },
           "401" : {
-            "description" : "Unauthorized\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only update messages from servers whose he is an administrator\n"
