@@ -148,6 +148,9 @@
           },
           "401" : {
             "description" : "Unauthorized:\n- Invalid tokens, please login to generate new valid tokens\n"
+          },
+          "403" : {
+            "description" : "Forbidden:\n- Access token is not expired\n"
           }
         }
       }
@@ -231,7 +234,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens:\n- User can only get his account\n"
+            "description" : "Forbidden:\n- User can only get his account\n"
           },
           "404" : {
             "description" : "Not found:\n- User not found\n"
