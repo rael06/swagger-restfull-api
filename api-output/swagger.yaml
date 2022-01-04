@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "DiscordApi API definition",
-    "description" : "- This is a simple Discord API like.\n- It uses Json web token as authentication way.\n- Once you created a user, you will be able to login.\n- Then use the returned Token in requests headers\n- JWT Authorization header using the Bearer scheme. \n- Example: \\\"Authorization: Bearer {token}\\\"\n",
+    "description" : "- This is a simple Discord API like.\n- It uses Json web token as authentication way.\n- Once you created a user, you will be able to login.\n- Then use the returned Token in requests headers\n- JWT Authorization header using the Bearer scheme. \n- Example: \\\"Authorization: Bearer {token}\\\"\n- Requests limit rate: 5 requests per seconds\n- You will receive an error 503 when reached\n",
     "contact" : {
       "email" : "rael.calitro@ynov.com"
     },
