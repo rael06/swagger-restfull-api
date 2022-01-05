@@ -549,7 +549,7 @@
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
-          "description" : "The id of the server in which you want to create a subscriber",
+          "description" : "The id of the server in which you want to subscribe",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -557,17 +557,6 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "A JSON object that contains the id of the related user and a boolean for the server administration role",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/SubscriberCreateDto"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "201" : {
             "description" : "Created:\n- The created subscriber\n",
@@ -1366,20 +1355,6 @@
             "type" : "string",
             "description" : "cannot be empty",
             "example" : "my-updated-channel-name"
-          }
-        }
-      },
-      "SubscriberCreateDto" : {
-        "required" : [ "isAdmin", "userId" ],
-        "type" : "object",
-        "properties" : {
-          "userId" : {
-            "type" : "string",
-            "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
-          },
-          "isAdmin" : {
-            "type" : "boolean",
-            "example" : false
           }
         }
       },
