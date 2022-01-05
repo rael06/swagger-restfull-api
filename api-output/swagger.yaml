@@ -532,7 +532,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
@@ -623,7 +623,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get his subscription\n- User can only get subscribers of servers whose he is an administrator\n"
@@ -761,7 +761,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
@@ -866,7 +866,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
@@ -1007,7 +1007,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get messages from channels of its subscribed servers\n"
@@ -1109,7 +1109,7 @@
             "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
-            "description" : "Unauthorized:\n- Please login and use provided tokens\n- User not authenticated\n"
+            "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
             "description" : "Forbidden:\n- User can only get messages of its subscribed servers\n"
