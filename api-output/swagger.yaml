@@ -1352,6 +1352,9 @@
           "name" : {
             "type" : "string",
             "example" : "my-server"
+          },
+          "currentUserSubscription" : {
+            "$ref" : "#/components/schemas/SubscriberReadDto"
           }
         }
       },
