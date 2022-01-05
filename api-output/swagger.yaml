@@ -1395,9 +1395,17 @@
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
           },
+          "userName" : {
+            "type" : "string",
+            "example" : "my-pseudo"
+          },
           "serverId" : {
             "type" : "string",
             "example" : "a00000e0-aaa0-000a-0000-00e00aa00e00"
+          },
+          "serverName" : {
+            "type" : "string",
+            "example" : "my-server"
           },
           "isAdmin" : {
             "type" : "boolean",
