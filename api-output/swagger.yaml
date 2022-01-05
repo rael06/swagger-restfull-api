@@ -284,9 +284,9 @@
         "summary" : "Gets servers",
         "operationId" : "getServers",
         "parameters" : [ {
-          "name" : "mySubscribedOnly",
+          "name" : "subscribedByCurrentUserOnly",
           "in" : "query",
-          "description" : "Boolean, true to query only the user subscribed servers",
+          "description" : "Boolean, true to query only the current user subscribed servers",
           "required" : false,
           "style" : "form",
           "explode" : true,
