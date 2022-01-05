@@ -170,7 +170,7 @@
       "get" : {
         "tags" : [ "authentication" ],
         "summary" : "Gets the authenticated and identified user by token",
-        "operationId" : "getUserByToken",
+        "operationId" : "getCurrentUser",
         "responses" : {
           "200" : {
             "description" : "Success:\n- The current user\n",
