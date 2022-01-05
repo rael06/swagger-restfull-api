@@ -427,7 +427,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
@@ -487,7 +487,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Server not found\n"
@@ -626,7 +626,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get his subscription\n- User can only get subscribers of servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
           },
           "404" : {
             "description" : "Not found\n- Subscriber not found\n"
@@ -659,7 +659,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete subscribers from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Subscriber not found\n"
@@ -719,7 +719,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update subscribers from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Subscriber not found\n"
@@ -824,7 +824,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only create channels on servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- server not found\n"
@@ -902,7 +902,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete channels from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Channel not found\n"
@@ -962,7 +962,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update channels from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Channel not found\n"
@@ -1145,7 +1145,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete messages from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User can only delete his messages\n- User can only delete messages from servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Message not found\n"
@@ -1205,7 +1205,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update messages from servers whose he is an administrator\n"
+            "description" : "Forbidden:\n- User can only update his messages\n- User can only update messages from servers whose he is an administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Message not found\n"
