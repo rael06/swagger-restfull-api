@@ -51,7 +51,7 @@
       "get" : {
         "tags" : [ "trials" ],
         "summary" : "Tries the api as anonymous",
-        "operationId" : "tryApiAsAnonymous",
+        "operationId" : "getAnonymousTry",
         "responses" : {
           "200" : {
             "description" : "Success:\n- The anonymous trial Json object\n",
@@ -73,7 +73,7 @@
       "get" : {
         "tags" : [ "trials" ],
         "summary" : "Tries the api as authenticated",
-        "operationId" : "tryApiAsAuthenticated",
+        "operationId" : "getAuthenticatedTry",
         "responses" : {
           "200" : {
             "description" : "Success:\n- The authenticated trial Json object\n",
@@ -170,7 +170,7 @@
       "get" : {
         "tags" : [ "authentication" ],
         "summary" : "Gets the authenticated and identified user by token",
-        "operationId" : "getCurrentUser",
+        "operationId" : "getUserByToken",
         "responses" : {
           "200" : {
             "description" : "Success:\n- The current user\n",
@@ -219,7 +219,7 @@
             },
             "links" : {
               "GetUserById" : {
-                "operationId" : "getUser",
+                "operationId" : "getUserById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -240,7 +240,7 @@
       "get" : {
         "tags" : [ "users" ],
         "summary" : "Gets a user by id",
-        "operationId" : "getUser",
+        "operationId" : "getUserById",
         "parameters" : [ {
           "name" : "userId",
           "in" : "path",
@@ -343,7 +343,7 @@
             },
             "links" : {
               "GetServerById" : {
-                "operationId" : "getServer",
+                "operationId" : "getServerById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -367,7 +367,7 @@
       "get" : {
         "tags" : [ "servers" ],
         "summary" : "Gets a server by id",
-        "operationId" : "getServer",
+        "operationId" : "getServerById",
         "parameters" : [ {
           "name" : "serverId",
           "in" : "path",
@@ -472,7 +472,7 @@
             },
             "links" : {
               "GetServerById" : {
-                "operationId" : "getServer",
+                "operationId" : "getServerById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -580,7 +580,7 @@
             },
             "links" : {
               "GetSubscriberById" : {
-                "operationId" : "getSubscriber",
+                "operationId" : "getSubscriberById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -607,7 +607,7 @@
       "get" : {
         "tags" : [ "subscribers" ],
         "summary" : "Gets a subscriber by id",
-        "operationId" : "getSubscriber",
+        "operationId" : "getSubscriberById",
         "parameters" : [ {
           "name" : "subscriberId",
           "in" : "path",
@@ -715,7 +715,7 @@
             },
             "links" : {
               "GetSubscriberById" : {
-                "operationId" : "getSubscriber",
+                "operationId" : "getSubscriberById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -820,7 +820,7 @@
             },
             "links" : {
               "GetChannelById" : {
-                "operationId" : "getChannel",
+                "operationId" : "getChannelById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -850,7 +850,7 @@
       "get" : {
         "tags" : [ "channels" ],
         "summary" : "Gets a channel by id",
-        "operationId" : "getChannel",
+        "operationId" : "getChannelById",
         "parameters" : [ {
           "name" : "channelId",
           "in" : "path",
@@ -958,7 +958,7 @@
             },
             "links" : {
               "GetChannelById" : {
-                "operationId" : "getChannel",
+                "operationId" : "getChannelById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -1066,7 +1066,7 @@
             },
             "links" : {
               "GetMessageById" : {
-                "operationId" : "getMessage",
+                "operationId" : "getMessageById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
@@ -1093,7 +1093,7 @@
       "get" : {
         "tags" : [ "messages" ],
         "summary" : "Gets a message by id",
-        "operationId" : "getMessage",
+        "operationId" : "getMessageById",
         "parameters" : [ {
           "name" : "messageId",
           "in" : "path",
@@ -1201,7 +1201,7 @@
             },
             "links" : {
               "GetMessageById" : {
-                "operationId" : "getMessage",
+                "operationId" : "getMessageById",
                 "parameters" : {
                   "serverId" : "$response.body#/id"
                 },
