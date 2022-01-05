@@ -578,7 +578,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request:\n- Something went wrong, please try again later\n- One or more validation errors occurred\n"
+            "description" : "Bad request:\n- Something went wrong, please try again later\n"
           },
           "401" : {
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
@@ -587,7 +587,7 @@
             "description" : "Not found:\n- server not found\n"
           },
           "409" : {
-            "description" : "Conflict:\n- Subscriber with provided userId already exists\n"
+            "description" : "Conflict:\n- Current user is already a subscriber\n"
           }
         }
       }
