@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "DiscordApi API definition",
-    "description" : "- **Description**\n  - This is a simple Discord API like\n- **Authentication**\n  - The API uses Json web token as authentication way\n  - Once you created a user, you will be able to login\n  - Then use the returned Token during login in requests headers as in the example below\n  - JWT Authorization header using the Bearer scheme: \\\"Authorization: Bearer {token}\\\"\n  - Access token expiration time: 5 minutes\n  - Refresh token expiration time: 1 month\n  - Use the login endpoint to generate new tokens with your credentials\n  - Use refresh token endpoint to generate new tokens with your last tokens\n- **Requests limit rate**:\n  - Requests limit rate by IP which covers the overall API: \n    - For all: 4 req/s\n    - You can use the **/trials/anonymous** endpoint to test this limit\n  - Requests limit rate by user:\n    - For anonymous: 1 req/5s, 500 req/6h\n    - For authenticated: 1 req/2s, 500 req/6h\n  - You will receive an \"http error 429 Too many Requests\" when reached\n",
+    "description" : "- **Description**\n  - This is a simple Discord API like\n- **Authentication**\n  - The API uses Json web token as authentication way\n  - Once you created a user, you will be able to login\n  - Then use the returned Token during login in requests headers as in the example below\n  - JWT Authorization header using the Bearer scheme: \\\"Authorization: Bearer {token}\\\"\n  - Access token expiration time: 5 minutes\n  - Refresh token expiration time: 1 month\n  - Use the login endpoint with your credentials to generate new tokens\n  - Use refresh token endpoint with your last tokens (having a valid refresh token) to generate new tokens\n- **Requests limit rate**:\n  - Requests limit rate by IP which covers the overall API: \n    - For all: 4 req/s\n    - You can use the **/trials/anonymous** endpoint to test this limit\n  - Requests limit rate by user:\n    - For anonymous: 1 req/5s, 500 req/6h\n    - For authenticated: 1 req/2s, 500 req/6h\n  - You will receive an \"http error 429 Too many Requests\" when reached\n",
     "contact" : {
       "email" : "rael.calitro@ynov.com"
     },
@@ -535,7 +535,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n"
           },
           "404" : {
             "description" : "Not found\n- Server not found\n"
@@ -626,7 +626,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get subscribers of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n"
           },
           "404" : {
             "description" : "Not found\n- Subscriber not found\n"
@@ -764,7 +764,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n"
           },
           "404" : {
             "description" : "Not found\n- Server not found\n"
@@ -869,7 +869,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get channels of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n"
           },
           "404" : {
             "description" : "Not found\n- Channel not found\n"
@@ -1010,7 +1010,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get messages from channels of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server channel\n"
           },
           "404" : {
             "description" : "Not found\n- Channel not found\n"
@@ -1070,7 +1070,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only create messages on channels of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server channel\n"
           },
           "404" : {
             "description" : "Not found:\n- Channel not found\n"
@@ -1112,7 +1112,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only get messages of its subscribed servers\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server message\n"
           },
           "404" : {
             "description" : "Not found\n- Message not found\n"
