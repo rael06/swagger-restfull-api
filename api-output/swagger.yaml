@@ -659,7 +659,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User is not a server administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n- A server must have at least one administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Subscriber not found\n"
@@ -902,7 +902,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User is not a server administrator\n"
+            "description" : "Forbidden:\n- User is not a server administrator\n- A server must have at least one channel\n"
           },
           "404" : {
             "description" : "Not found:\n- Channel not found\n"
