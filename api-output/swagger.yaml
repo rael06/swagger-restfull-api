@@ -869,7 +869,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User is not a subscriber of the server\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server channel\n"
           },
           "404" : {
             "description" : "Not found\n- Channel not found\n"
