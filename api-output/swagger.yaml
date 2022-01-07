@@ -1145,7 +1145,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only delete his messages\n- User is not a server administrator\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Message not found\n"
@@ -1205,7 +1205,7 @@
             "description" : "Unauthorized:\n- Please login and use provided tokens\n"
           },
           "403" : {
-            "description" : "Forbidden:\n- User can only update his messages\n- User is not a server administrator\n"
+            "description" : "Forbidden:\n- User is not a subscriber of the server\n- User is not a server administrator\n"
           },
           "404" : {
             "description" : "Not found:\n- Message not found\n"
