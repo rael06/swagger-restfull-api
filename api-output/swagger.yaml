@@ -281,7 +281,7 @@
     "/servers" : {
       "get" : {
         "tags" : [ "servers" ],
-        "summary" : "Gets servers",
+        "summary" : "Gets servers ordered by name: A -> Z\n",
         "operationId" : "getServers",
         "parameters" : [ {
           "name" : "subscribedByCurrentUserOnly",
@@ -501,7 +501,7 @@
     "/servers/{serverId}/subscribers" : {
       "get" : {
         "tags" : [ "subscribers" ],
-        "summary" : "Gets subscribers of a server",
+        "summary" : "Gets subscribers of a server ordered by user name: A -> Z\n",
         "operationId" : "getSubscribers",
         "parameters" : [ {
           "name" : "serverId",
@@ -730,7 +730,7 @@
     "/servers/{serverId}/channels" : {
       "get" : {
         "tags" : [ "channels" ],
-        "summary" : "Gets channels of a server",
+        "summary" : "Gets channels of a server ordered by name: A -> Z\n",
         "operationId" : "getChannels",
         "parameters" : [ {
           "name" : "serverId",
@@ -976,7 +976,7 @@
     "/channels/{channelId}/messages" : {
       "get" : {
         "tags" : [ "messages" ],
-        "summary" : "Gets messages of a channel",
+        "summary" : "Gets messages of a channel ordered by creation date time: the newest is first\n",
         "operationId" : "getMessages",
         "parameters" : [ {
           "name" : "channelId",
